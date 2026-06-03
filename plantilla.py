@@ -4,9 +4,9 @@ from PyQt5.QtGui import QFont # Parametros unificados de fuentes
 
 
 ANCHO, ALTO = 700, 400
-TITULO = "Gestor de finanzas PyQt5"
+TITULO = "PyQt5 Plantilla"
 text_btn = "Enviar"
-text_input = "Ingrese un monto o descripción..."
+text_input = "Ingrese algo..."
 
 class MainWindow(QWidget):
     def __init__(self, parent=None, flags=Qt.WindowFlags()):
