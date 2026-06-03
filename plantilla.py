@@ -1,53 +1,64 @@
-from PyQt5.QtWidgets import (QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit, QTextEdit)
+from PyQt5.QtWidgets import QApplication, QWidget, QHBoxLayout, QLabel, QPushButton, QLineEdit
 from PyQt5.QtCore import Qt
-# Agregar el resto de componentes segun requiera
+from PyQt5.QtGui import QFont # Parametros unificados de fuentes
 
-# CONSTANTES (parametros de inicializacion)
+
 ANCHO, ALTO = 700, 400
-TITULO = 'Plantilla PyQt5'
-text_btn = 'Enviar'
-text_input = 'Ingrease algo...'
+TITULO = "Gestor de finanzas PyQt5"
+text_btn = "Enviar"
+text_input = "Ingrese un monto o descripción..."
 
-# CLASE PRINCIPAL (VENTANA)
 class MainWindow(QWidget):
     def __init__(self, parent=None, flags=Qt.WindowFlags()):
         super().__init__(parent=parent, flags=flags)
-
-        self.set_window()
-        self.config_window()
+        
+        self.set_Window()
+        self.config_Window()
         self.event_handler()
         self.show()
 
-    def set_window(self):
-        # Estructurar el diseño de mi ventana
+    def set_Window(self):
+        
         self.btn = QPushButton(text_btn)
-        self.texto = QLabel()
-        self.input = QLineEdit(text_input)
+        # Parametros de estulo INDIVIDUALES
+        self.btn.setStyleSheet('''
+                    color: #ffffff;
+                    background-color: #102db0;
+                    border-radius: 15px;
+                    padding: 10px;
+                    font-weight: 600;
+        ''')
+        self.texto = QLabel("Historial: ")
+        self.input = QLineEdit()
+        self.input.setPlaceholderText(text_input)
 
         self.main_layout = QHBoxLayout()
         self.main_layout.addWidget(self.input, alignment=Qt.AlignLeft)
         self.main_layout.addWidget(self.btn, alignment=Qt.AlignLeft)
-        self.main_layout.addWidget(self.texto, alignment=Qt.AlignCenter)
+        self.main_layout.addWidget(self.texto, alignment=Qt.AlignLeft)
 
         self.setLayout(self.main_layout)
 
-    def config_window(self):
+    def config_Window(self):
         self.resize(ANCHO, ALTO)
         self.setWindowTitle(TITULO)
-        # Adaptar segun requiera
+        # Configuracion de fuente unificada
+        font = QFont('Arial', 14, QFont.Cursive, True)
+        self.setFont(font)
 
     def event_handler(self):
-        # GESTION Y MANEJO DE EVENTOS (INTERACCION DEK USUARIO)
         self.btn.clicked.connect(self.set_text)
-
+        
     def set_text(self):
         cadena = self.input.text()
-        self.texto.setText(cadena)
+        if cadena: 
+            self.texto.setText(f"Registro: {cadena}")
+            self.input.clear()
 
-# FUNCION PARA EJECUTAR LA APP
 def run():
     app = QApplication([])
     main_window = MainWindow()
+    main_window.show() 
     app.exec_()
 
 if __name__ == "__main__":
